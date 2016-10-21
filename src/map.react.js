@@ -24,7 +24,7 @@ import pureRender from 'pure-render-decorator';
 import mapboxgl from 'mapbox-gl';
 import {select} from 'd3-selection';
 import Immutable from 'immutable';
-import assert from 'assert';
+//import assert from 'assert';
 
 import MapInteractions from './map-interactions.react';
 import config from './config';
@@ -519,8 +519,8 @@ export default class MapGL extends Component {
     }
 
     // take the start lnglat and put it where the mouse is down.
-    assert(this.props.startDragLngLat, '`startDragLngLat` prop is required ' +
-      'for mouse drag behavior to calculate where to position the map.');
+    //assert(this.props.startDragLngLat, '`startDragLngLat` prop is required ' +
+     // 'for mouse drag behavior to calculate where to position the map.');
 
     const map = this._getMap();
     const transform = cloneTransform(map.transform);
@@ -540,10 +540,10 @@ export default class MapGL extends Component {
     }
 
     const {startBearing, startPitch} = this.props;
-    assert(typeof startBearing === 'number',
-      '`startBearing` prop is required for mouse rotate behavior');
-    assert(typeof startPitch === 'number',
-      '`startPitch` prop is required for mouse rotate behavior');
+    //assert(typeof startBearing === 'number',
+    //  '`startBearing` prop is required for mouse rotate behavior');
+    //assert(typeof startPitch === 'number',
+    //  '`startPitch` prop is required for mouse rotate behavior');
 
     const map = this._getMap();
 
