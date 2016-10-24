@@ -24,14 +24,7 @@ import React, {Component} from 'react';
 import autobind from 'autobind-decorator';
 import window from 'global/window';
 
-import NotInteractiveExample from './examples/not-interactive.react';
-import ChoroplethExample from './examples/choropleth.react';
-import CustomExample from './examples/custom.react';
-import GeodataCreator from './examples/geodata-creator.react';
-import ScatterplotExample from './examples/scatterplot.react';
 import RouteExample from './examples/route.react';
-import StyleDiffingExample from './examples/style-diffing.react';
-import TiltExample from './examples/tilt.react';
 
 function getAccessToken() {
   const match = window.location.search.match(/access_token=([^&\/]*)/);
@@ -71,17 +64,7 @@ export default class App extends Component {
     };
     return (
       <div>
-        <TiltExample
-          width={ this.state.width - 30 }
-          height={ 400 }
-          mapboxApiAccessToken={ getAccessToken() }/>
         <RouteExample { ...common }/>
-        <ScatterplotExample { ...common }/>
-        <ChoroplethExample { ...common }/>
-        <CustomExample { ...common }/>
-        <GeodataCreator { ...common }/>
-        <NotInteractiveExample { ...common }/>
-        <StyleDiffingExample { ...common }/>
       </div>
     );
   }
