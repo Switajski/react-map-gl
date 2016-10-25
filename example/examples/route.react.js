@@ -29,7 +29,7 @@ import {rgb} from 'd3-color';
 import MapGL, {SVGOverlay, CanvasOverlay} from '../../src';
 import alphaify from '../../src/utils/alphaify';
 
-import ROUTES from './../data/routes-example.json';
+import ROUTES from './../data/traccar.json';
 
 function round(x, n) {
   const tenN = Math.pow(10, n);
@@ -49,8 +49,8 @@ export default class RouteOverlayExample extends Component {
     super(props);
     this.state = {
       viewport: {
-        latitude: 37.7736092599127,
-        longitude: -122.42312591099463,
+        latitude: 49.46887666666667,
+        longitude: 11.103226666666666,
         zoom: 12.011557070552028,
         startDragLngLat: null,
         isDragging: false
@@ -89,7 +89,7 @@ export default class RouteOverlayExample extends Component {
     return (
       <g>
       {
-        ROUTES.map((route, index) => {
+        this.transform().map((route, index) => {
           const points = route.coordinates.map(project).map(
             p => [round(p[0], 1), round(p[1], 1)]
           );
@@ -103,7 +103,7 @@ export default class RouteOverlayExample extends Component {
   @autobind
   _redrawCanvasOverlay({ctx, width, height, project}) {
     ctx.clearRect(0, 0, width, height);
-    ROUTES.map((route, index) =>
+    this.transform().map((route, index) =>
       route.coordinates.map(project).forEach((p, i) => {
         const point = [round(p[0], 1), round(p[1], 1)];
         ctx.fillStyle = rgb(color(index)).brighter(1).toString();
@@ -112,6 +112,17 @@ export default class RouteOverlayExample extends Component {
         ctx.fill();
       })
     );
+  }
+
+  transform(){
+    const transformed = ROUTES.map((route) => {
+      return [route.longitude, route.latitude];
+    });
+    const c1 = {};
+    c1.coordinates = transformed;
+    const packed = [];
+    packed.push(c1);
+    return packed;
   }
 
   render() {

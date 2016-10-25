@@ -57,8 +57,8 @@ export default class App extends Component {
 
   render() {
     const common = {
-      width: 400,
-      height: 400,
+      width: 800,
+      height: 800,
       style: {float: 'left'},
       mapboxApiAccessToken: getAccessToken()
     };
