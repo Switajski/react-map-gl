@@ -28,8 +28,7 @@ import {rgb} from 'd3-color';
 
 import MapGL, {SVGOverlay, CanvasOverlay} from '../../src';
 import alphaify from '../../src/utils/alphaify';
-
-import ROUTES from './../data/traccar.json';
+import request from 'request';
 
 function round(x, n) {
   const tenN = Math.pow(10, n);
@@ -40,7 +39,8 @@ const color = scaleOrdinal(schemeCategory10);
 
 const PROP_TYPES = {
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  route: PropTypes.array.isRequired
 };
 
 export default class RouteOverlayExample extends Component {
@@ -53,7 +53,7 @@ export default class RouteOverlayExample extends Component {
         longitude: 11.103226666666666,
         zoom: 12.011557070552028,
         startDragLngLat: null,
-        isDragging: false
+        isDragging: false,
       }
     };
   }
@@ -89,7 +89,7 @@ export default class RouteOverlayExample extends Component {
     return (
       <g>
       {
-        this.transform().map((route, index) => {
+        this.props.route.map((route, index) => {
           const points = route.coordinates.map(project).map(
             p => [round(p[0], 1), round(p[1], 1)]
           );
@@ -103,7 +103,7 @@ export default class RouteOverlayExample extends Component {
   @autobind
   _redrawCanvasOverlay({ctx, width, height, project}) {
     ctx.clearRect(0, 0, width, height);
-    this.transform().map((route, index) =>
+    this.props.route.map((route, index) =>
       route.coordinates.map(project).forEach((p, i) => {
         const point = [round(p[0], 1), round(p[1], 1)];
         ctx.fillStyle = rgb(color(index)).brighter(1).toString();
@@ -112,17 +112,6 @@ export default class RouteOverlayExample extends Component {
         ctx.fill();
       })
     );
-  }
-
-  transform(){
-    const transformed = ROUTES.map((route) => {
-      return [route.longitude, route.latitude];
-    });
-    const c1 = {};
-    c1.coordinates = transformed;
-    const packed = [];
-    packed.push(c1);
-    return packed;
   }
 
   render() {

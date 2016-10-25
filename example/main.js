@@ -23,6 +23,7 @@ import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
 import autobind from 'autobind-decorator';
 import window from 'global/window';
+import ROUTES from './data/traccar.json';
 
 import RouteExample from './examples/route.react';
 
@@ -55,6 +56,29 @@ export default class App extends Component {
     this.setState({width: window.innerWidth});
   }
 
+  componentWillMount(){
+    console.log("mounted");
+    var request = require('request');
+    request('http://localhost/api/reports/route?_dc=1477399518102&deviceId=1&type=%25&from=2016-10-14T12%3A14%3A00.000Z&to=2016-10-14T18%3A00%3A00.000Z',
+      function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log(body) // Show the HTML for the Google homepage.
+          this.state.route = body;
+        }
+      })
+  }
+
+  transform(){
+    const transformed = ROUTES.map((route) => {
+      return [route.longitude, route.latitude];
+    });
+    const c1 = {};
+    c1.coordinates = transformed;
+    const packed = [];
+    packed.push(c1);
+    return packed;
+  }
+
   render() {
     const common = {
       width: 800,
@@ -64,7 +88,7 @@ export default class App extends Component {
     };
     return (
       <div>
-        <RouteExample { ...common }/>
+        <RouteExample { ...common } route={this.transform()} />
       </div>
     );
   }

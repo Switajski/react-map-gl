@@ -29,6 +29,7 @@
     "mapbox-gl": "0.24.0",
     "pure-render-decorator": "^1.1.0",
     "redux-map-gl": "^0.1.0",
+    "request": "^2.76.0",
     "svg-transform": "0.0.3",
     "viewport-mercator-project": "^2.0.1"
   },
