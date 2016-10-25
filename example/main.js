@@ -49,7 +49,10 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     window.addEventListener('resize', this._onWindowResize);
-    this.state = {width: window.innerWidth};
+    this.state = {
+      width: window.innerWidth,
+      route: this.transform(ROUTES)
+    };
   }
 
   @autobind _onWindowResize() {
@@ -62,14 +65,14 @@ export default class App extends Component {
     request('http://localhost/api/reports/route?_dc=1477399518102&deviceId=1&type=%25&from=2016-10-14T12%3A14%3A00.000Z&to=2016-10-14T18%3A00%3A00.000Z',
       function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          console.log(body) // Show the HTML for the Google homepage.
-          this.state.route = body;
+          console.log('success');
+          this.setState({route : this.transform(JSON.parse(body))});
         }
-      })
+      }.bind(this))
   }
 
-  transform(){
-    const transformed = ROUTES.map((route) => {
+  transform(data){
+    const transformed = data.map((route) => {
       return [route.longitude, route.latitude];
     });
     const c1 = {};
@@ -88,7 +91,7 @@ export default class App extends Component {
     };
     return (
       <div>
-        <RouteExample { ...common } route={this.transform()} />
+        <RouteExample { ...common } route={this.state.route} />
       </div>
     );
   }
