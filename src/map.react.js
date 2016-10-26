@@ -171,7 +171,7 @@ const PROP_TYPES = {
 };
 
 const DEFAULT_PROPS = {
-  mapStyle: 'mapbox://styles/mapbox/light-v8',
+  mapStyle: 'mapbox://styles/mapbox/satellite-v9',
   onChangeViewport: null,
   mapboxApiAccessToken: config.DEFAULTS.MAPBOX_API_ACCESS_TOKEN,
   preserveDrawingBuffer: false,
