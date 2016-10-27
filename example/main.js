@@ -30,23 +30,6 @@ import request from 'request';
 
 import RouteExample from './examples/route.react';
 
-function getAccessToken() {
-  const match = window.location.search.match(/access_token=([^&\/]*)/);
-  let accessToken = match && match[1];
-  if (!accessToken) {
-    /* eslint-disable no-process-env */
-    /* global process */
-    accessToken = process.env.MapboxAccessToken;
-    /* eslint-enable no-process-env */
-  }
-  if (accessToken) {
-    window.localStorage.accessToken = accessToken;
-  } else {
-    accessToken = window.localStorage.accessToken;
-  }
-  return accessToken;
-}
-
 export default class App extends Component {
 
   constructor(props) {
@@ -55,7 +38,8 @@ export default class App extends Component {
     this.state = {
       width: window.innerWidth,
       route: this.transform(ROUTES),
-      routeCounter: 0
+      routeCounter: 0,
+      server: 'localhost'
     };
   }
 
@@ -67,8 +51,15 @@ export default class App extends Component {
     const me = this;
     console.log("mounted");
 
+    const options = {
+      url: 'http://' + this.state.server + '/api/reports/route?_dc=1477399518102&deviceId=1&type=%25&from=2016-10-14T12%3A14%3A00.000Z&to=2016-10-14T18%3A00%3A00.000Z',
+      headers : {
+        'Accept': 'application/json'
+      }
+    };
+
     // TODO: temporary code to test second color with route requested
-    request('http://localhost/api/reports/route?_dc=1477399518102&deviceId=1&type=%25&from=2016-10-14T12%3A14%3A00.000Z&to=2016-10-14T18%3A00%3A00.000Z',
+    request(options ,
       function (error, response, body) {
         if (!error && response.statusCode == 200) {
           // TODO: this should not replace the ROUTE, but add a second one
@@ -87,9 +78,7 @@ export default class App extends Component {
     const me = this;
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const pathname = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-    //const client = new WebSocket(protocol + '//' + window.location.host + pathname + 'api/socket');
-    const client = new WebSocket(protocol + '//localhost' + pathname + 'api/socket');
+    const client = new WebSocket(protocol + '//' + this.state.server + '/api/socket');
 
     client.onerror = function() {
       console.log('Connection Error');
@@ -156,7 +145,7 @@ export default class App extends Component {
       width: 800,
       height: 800,
       style: {float: 'left'},
-      mapboxApiAccessToken: getAccessToken()
+      mapboxApiAccessToken: 'pk.eyJ1Ijoic3dpdGgiLCJhIjoiY2l1ZzBrdjRoMDA1YzMzcHJ0dTZ4OGVoNSJ9.eWr8UgiJX74q0yaOmVVlUg'
     };
     return (
       <div>
