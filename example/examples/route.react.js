@@ -26,8 +26,8 @@ import autobind from 'autobind-decorator';
 import {scaleOrdinal, schemeCategory10} from 'd3-scale';
 import {rgb} from 'd3-color';
 
-import MapGL, {SVGOverlay, CanvasOverlay} from '../../src';
-import alphaify from '../../src/utils/alphaify';
+import MapGL, {SVGOverlay, CanvasOverlay} from '../../dist';
+import alphaify from '../../dist/utils/alphaify';
 import request from 'request';
 
 function round(x, n) {
