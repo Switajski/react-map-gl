@@ -1729,7 +1729,7 @@ var App = (_class = function (_Component) {
       width: _window2.default.innerWidth,
       route: _this.transform(_traccar2.default),
       routeCounter: 0,
-      server: 'localhost'
+      server: 'gps-tracker.switajski.de'
     };
     return _this;
   }

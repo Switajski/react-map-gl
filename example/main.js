@@ -39,7 +39,7 @@ export default class App extends Component {
       width: window.innerWidth,
       route: this.transform(ROUTES),
       routeCounter: 0,
-      server: 'localhost'
+      server: 'gps-tracker.switajski.de'
     };
   }
 
