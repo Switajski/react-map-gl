@@ -51,6 +51,8 @@ export default class RouteOverlayExample extends Component {
       viewport: {
         latitude: 49.46887666666667,
         longitude: 11.103226666666666,
+        //latitude: 37.7736092599127,
+        //longitude: -122.42312591099463,
         zoom: 12.011557070552028,
         startDragLngLat: null,
         isDragging: false,
