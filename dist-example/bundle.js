@@ -32489,7 +32489,8 @@ var App = (_class = function (_Component) {
     _this.state = {
       width: _window2.default.innerWidth,
       route: _this.transform(_traccar2.default),
-      routeCounter: 0
+      routeCounter: 0,
+      server: 'localhost'
     };
     return _this;
   }
@@ -32505,8 +32506,15 @@ var App = (_class = function (_Component) {
       var me = this;
       console.log("mounted");
 
+      var options = {
+        url: 'http://' + this.state.server + '/api/reports/route?_dc=1477399518102&deviceId=1&type=%25&from=2016-10-14T12%3A14%3A00.000Z&to=2016-10-14T18%3A00%3A00.000Z',
+        headers: {
+          'Accept': 'application/json'
+        }
+      };
+
       // TODO: temporary code to test second color with route requested
-      (0, _request2.default)('http://localhost/api/reports/route?_dc=1477399518102&deviceId=1&type=%25&from=2016-10-14T12%3A14%3A00.000Z&to=2016-10-14T18%3A00%3A00.000Z', function (error, response, body) {
+      (0, _request2.default)(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
           // TODO: this should not replace the ROUTE, but add a second one
           var futureState = this.state.route;
@@ -32527,7 +32535,7 @@ var App = (_class = function (_Component) {
       var me = this;
 
       var protocol = _window2.default.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      var client = new WebSocket(protocol + '//gps-tracker.switajski.de/api/socket');
+      var client = new WebSocket(protocol + '//' + this.state.server + '/api/socket');
 
       client.onerror = function () {
         console.log('Connection Error');

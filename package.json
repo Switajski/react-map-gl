@@ -61,7 +61,7 @@
   },
   "scripts": {
     "build": "babel src -d dist --copy-files --source-maps inline",
-    "build-example": "babel src -d dist --copy-files --source-maps inline && babel example -d dist-example --copy-files --source-maps inline",
+    "build-example": "babel src -d dist --copy-files --source-maps inline && babel example -d dist-example --copy-files --source-maps inline && browserify dist-example/main.js > dist-example/bundle.js",
     "start": "budo ./example/main.js --live --open --port 3000 -- -t babelify -t envify",
     "lint": "uber-standard",
     "test": "npm run lint && browserify -t babelify -t envify test/index.js | testron",
