@@ -72,7 +72,8 @@
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "example"
   ],
   "peerDependencies": {
     "immutable": "^3.7.6",
