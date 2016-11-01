@@ -26,7 +26,7 @@
     "d3-scale": "^1.0.3",
     "d3-selection": "^1.0.2",
     "global": "^4.3.0",
-    "mapbox-gl": "0.24.0",
+    "mapbox-gl": "https://github.com/Switajski/mapbox-gl-js.git",
     "pure-render-decorator": "^1.1.0",
     "redux-map-gl": "^0.1.0",
     "request": "^2.76.0",
